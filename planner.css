@@ -10,3 +10,9 @@
 	margin-right: 350px;
 	float: right;
 }
+
+
+#semester, .add_class_button{
+	position: relative;
+	right: 30px;
+}
