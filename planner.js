@@ -71,3 +71,7 @@ function removeclass(){
 	}
 
 }
+
+function saveclass(){
+	
+}
