@@ -75,3 +75,44 @@ function removeclass(){
 function saveclass(){
 	
 }
+
+function goprevsemester(){
+	var semester = document.getElementById("current_semester").innerText
+
+	semesterparts = semester.split(" ")
+
+	var season = semesterparts[0]
+
+	var year = semesterparts[1]
+
+	if(season == "Fall"){
+		document.getElementById("current_semester").innerText = "Spring" + " " + year
+	}
+	else{
+		var py = parseInt(year, 10)
+		py -= 1
+		console.log(py)
+		prevyear = py.toString()
+		document.getElementById("current_semester").innerText = "Fall" + " " + prevyear
+	}
+}
+
+function gonextsemester(){
+	var semester = document.getElementById("current_semester").innerText
+
+	semesterparts = semester.split(" ")
+
+	var season = semesterparts[0]
+
+	var year = semesterparts[1]
+
+	if(season == "Fall"){
+		var ny = parseInt(year, 10)
+		ny += 1
+		nextyear = ny.toString()
+		document.getElementById("current_semester").innerText = "Spring" + " " + nextyear
+	}
+	else{
+		document.getElementById("current_semester").innerText = "Fall" + " " + year
+	}
+}

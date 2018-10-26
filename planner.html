@@ -28,7 +28,19 @@
 			</div>
 		</div>
 		<center><div class="course_table">
-			<div id="semester"><h1>Fall 2018</h1></div>
+			<div class="heading">
+			<!-- <div id="left arrow"></div> -->
+			<div id="semester">
+				<!-- <div id="prev"><i class="chevron left icon" id="previous"></i></div> -->
+				<h1 id="current">
+					<span onclick="goprevsemester()"><i class="arrow left icon" id="previous"></i></span>
+					<span id="current_semester">Fall 2018</span>
+					<span onclick="gonextsemester()"><i class="arrow right icon" id="next"></i></span>
+				</h1>
+				<!-- <div id="nxt"><i class="chevron right icon" id="next"></i></div> -->
+			</div>
+			<!-- <div id="right arrow"></div> -->
+			</div>	
 			<table class="ui celled table" id = "table of classes">
 				<thead>
 					<tr>

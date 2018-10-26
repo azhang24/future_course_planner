@@ -12,7 +12,29 @@
 }
 
 
-#semester, .add_class_button{
+/*#previous{
+	margin-left: 30px;
+	margin-top: 20px;
+	float: left;
+}
+
+#next{
+	margin-right: 30px;
+	margin-bottom: 20px;
+	float: right;
+}*/
+
+#semester, .buttons{
 	position: relative;
 	right: 30px;
 }
+
+/*#previous, #current{
+	position: relative;
+	right: 30px;
+}
+
+#current, #next{
+	position: relative;
+	right: 30px;
+}*/
