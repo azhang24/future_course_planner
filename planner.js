@@ -7,8 +7,11 @@ $('#requirement-select3').dropdown();
 $('#course-select4').dropdown();
 $('#requirement-select4').dropdown();**/
 
+$('#semesterdropdown').dropdown();
+
 function addnewoption(dropdown, optionName){
 	var option = document.createElement("option")
+	option.value = optionName
 	option.innerHTML = optionName
 	dropdown.appendChild(option)
 }
@@ -32,6 +35,11 @@ function addclass(){
 	dropdown2.className = "ui search selection dropdown"
 	dropdown2.id = "requirement-select" + (num_classes+1)
 	addnewoption(dropdown2, "Requirement")
+	addnewoption(dropdown2, "Core Class")
+	addnewoption(dropdown2, "Major Course")
+	addnewoption(dropdown2, "External Specialization")
+	addnewoption(dropdown2, "Major Technical Elective")
+	addnewoption(dropdown2, "Advisor-Approved Elective")
 	new_requirement.appendChild(dropdown2)
 
 	new_row.appendChild(new_course)
@@ -56,46 +64,58 @@ function removeclass(){
 }
 
 function saveclasses(){
+	var table_body = document.getElementById("table of classes").children[1]
+	var num_classes = table_body.childElementCount
+	var semester = document.getElementById("current_semester").innerText
+
+	
+
+
 	
 }
 
-function goprevsemester(){
-	var semester = document.getElementById("current_semester").innerText
+function updatesemesterlist(){
+	var semesterlist = document.getElementById("semesterdropdown")
+	var updatedsemester = semesterlist.value
+	while(semesterlist.firstChild){
+		semesterlist.removeChild(semesterlist.firstChild)
+	}
 
-	semesterparts = semester.split(" ")
-
+	semesterparts = updatedsemester.split(" ")
 	var season = semesterparts[0]
-
 	var year = semesterparts[1]
 
-	if(season == "Fall"){
-		document.getElementById("current_semester").innerText = "Spring" + " " + year
-	}
-	else{
-		var py = parseInt(year, 10)
-		py -= 1
-		console.log(py)
-		prevyear = py.toString()
-		document.getElementById("current_semester").innerText = "Fall" + " " + prevyear
-	}
-}
-
-function gonextsemester(){
-	var semester = document.getElementById("current_semester").innerText
-
-	semesterparts = semester.split(" ")
-
-	var season = semesterparts[0]
-
-	var year = semesterparts[1]
-
-	if(season == "Fall"){
+	if (season == "Fall"){
 		var ny = parseInt(year, 10)
 		ny += 1
 		nextyear = ny.toString()
-		document.getElementById("current_semester").innerText = "Spring" + " " + nextyear
+
+		var py = parseInt(year, 10)
+		py -= 1
+		prevyear = py.toString()
+
+		addnewoption(semesterlist, "Fall" + " " + nextyear)
+		addnewoption(semesterlist, "Spring" + " " + nextyear)
+		addnewoption(semesterlist, updatedsemester)
+		addnewoption(semesterlist, "Spring" + " " + year)
+		addnewoption(semesterlist, "Fall" + " " + prevyear)
 	}
 	else{
-		document.getElementById("current_semester").innerText = "Fall" + " " + year
+
+		var ny = parseInt(year, 10)
+		ny += 1
+		nextyear = ny.toString()
+
+		var py = parseInt(year, 10)
+		py -= 1
+		prevyear = py.toString()
+
+		addnewoption(semesterlist, "Spring" + " " + nextyear) 
+		addnewoption(semesterlist, "Fall" + " " + year)
+		addnewoption(semesterlist, updatedsemester)
+		addnewoption(semesterlist, "Fall" + " " + prevyear)
+		addnewoption(semesterlist, "Spring" + " " + prevyear)
 	}
+	semesterlist.value = updatedsemester
 }
+

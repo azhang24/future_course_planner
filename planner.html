@@ -2,6 +2,7 @@
 <html>
 	<head lang="en">
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="planner.css">
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
 		  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -32,11 +33,16 @@
 			<!-- <div id="left arrow"></div> -->
 			<div id="semester">
 				<!-- <div id="prev"><i class="chevron left icon" id="previous"></i></div> -->
-				<h1 id="current">
-					<span onclick="goprevsemester()"><i class="arrow left icon" id="previous"></i></span>
-					<span id="current_semester">Fall 2018</span>
-					<span onclick="gonextsemester()"><i class="arrow right icon" id="next"></i></span>
-				</h1>
+					<!-- <span onclick="goprevsemester()"><i class="arrow left icon" id="previous"></i></span> -->
+					<!-- <span id="current_semester">Fall 2018</span> -->
+					<!-- <span onclick="gonextsemester()"><i class="arrow right icon" id="next"></i></span> -->
+					<select class="ui search selection dropdown" id="semesterdropdown" onchange="updatesemesterlist()">
+						<option value="Fall 2019"><center>Fall 2019</center></option>
+						<option value="Spring 2019"><center>Spring 2019</center></option>
+						<option value="Fall 2018" selected><center>Fall 2018</center></option>
+						<option value="Spring 2018"><center>Spring 2018</center></option>
+						<option value="Fall 2017"><center>Fall 2017</center></option>
+					</select>
 				<!-- <div id="nxt"><i class="chevron right icon" id="next"></i></div> -->
 			</div>
 			<!-- <div id="right arrow"></div> -->
