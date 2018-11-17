@@ -75,7 +75,7 @@ function saveclasses(){
 	
 }
 
-function retreiveclasses(semester){
+function retrieveclasses(semester){
 	classes = semestertoclasses.get(semester)
 
 	var table_body = document.getElementById("table of classes").children[1]
@@ -90,14 +90,17 @@ function retreiveclasses(semester){
 			addclass()
 			var course = document.getElementById("course-select" + (count.toString()))
 			course.value = key
+			course.options[course.options.selectedIndex].innerHTML = key
 			course.options[course.options.selectedIndex].selected = true
-			console.log(course.options.selectedIndex)
 			var requirement = document.getElementById("requirement-select" + (count.toString()))
 			requirement.value = classes.get(key)
+			requirement.options[requirement.options.selectedIndex].innerHTML = classes.get(key)
 			requirement.options[requirement.options.selectedIndex].selected = true
 			count++
 		}
 	}
+
+	//console.log(document.getElementById("course-select1").options[document.getElementById("course-select1").options.selectedIndex].innerHTML)
 
 }
 
@@ -143,7 +146,7 @@ function updatesemesterlist(){
 		addnewoption(semesterlist, "Fall" + " " + prevyear)
 		addnewoption(semesterlist, "Spring" + " " + prevyear)
 	}
-	semesterlist.value = updatedsemester
-	retreiveclasses(updatedsemester)
+	//semesterlist.value = updatedsemester
+	//retrieveclasses(updatedsemester)
 }
 
