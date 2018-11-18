@@ -1,4 +1,4 @@
-$('#semesterdropdown').dropdown();
+$('#seasondropdown').dropdown();
 
 var semestertoclasses = new Map();
 
@@ -36,6 +36,7 @@ function addclass(){
 	addnewoption(dropdown2, "External Specialization")
 	addnewoption(dropdown2, "Technical Elective")
 	addnewoption(dropdown2, "Advisor-Approved Elective")
+	addnewoption(dropdown2, "Liberal Studies")
 	new_requirement.appendChild(dropdown2)
 
 	new_row.appendChild(new_course)
@@ -56,6 +57,47 @@ function removeclass(){
 	}
 }
 
+function goprevsemester(){
+ 	var season = document.getElementById("season").innerHTML
+ 	var year = document.getElementById("year").innerHTML
+ 	if(season == "Fall"){
+		document.getElementById("season").innerHTML = "Spring"
+	}
+	else{
+		var py = parseInt(year, 10)
+		py -= 1
+		prevyear = py.toString()
+		document.getElementById("season").innerHTML = "Fall"
+		document.getElementById("year").innerHTML = prevyear
+	}
+}
+ function gonextsemester(){
+	var season = document.getElementById("season").innerHTML
+ 	var year = document.getElementById("year").innerHTML
+ 	if(season == "Fall"){
+		var ny = parseInt(year, 10)
+		ny += 1
+		nextyear = ny.toString()
+		document.getElementById("season").innerHTML = "Spring" 
+		document.getElementById("year").innerHTML = nextyear
+	}
+	else{
+		document.getElementById("season").innerText = "Fall"
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function saveclasses(){
 	var table_body = document.getElementById("table of classes").children[1]
 	var num_classes = table_body.childElementCount
@@ -75,7 +117,21 @@ function saveclasses(){
 	
 }
 
-function retrieveclasses(semester){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*function retrieveclasses(semester){
 	classes = semestertoclasses.get(semester)
 
 	var table_body = document.getElementById("table of classes").children[1]
@@ -103,8 +159,8 @@ function retrieveclasses(semester){
 	//console.log(document.getElementById("course-select1").options[document.getElementById("course-select1").options.selectedIndex].innerHTML)
 
 }
-
-function updatesemesterlist(){
+*/
+/*function updatesemesterlist(){
 	var semesterlist = document.getElementById("semesterdropdown")
 	var updatedsemester = semesterlist.value
 	while(semesterlist.firstChild){
@@ -148,5 +204,5 @@ function updatesemesterlist(){
 	}
 	//semesterlist.value = updatedsemester
 	//retrieveclasses(updatedsemester)
-}
+}*/
 

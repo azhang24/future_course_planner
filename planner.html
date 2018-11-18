@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head lang="en">
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,21 +29,28 @@
 				</a>
 			</div>
 		</div>
+
 		<center><div class="course_table">
 			<div class="heading">
 			<!-- <div id="left arrow"></div> -->
 			<div id="semester">
+
 				<!-- <div id="prev"><i class="chevron left icon" id="previous"></i></div> -->
-					<!-- <span onclick="goprevsemester()"><i class="arrow left icon" id="previous"></i></span> -->
-					<!-- <span id="current_semester">Fall 2018</span> -->
-					<!-- <span onclick="gonextsemester()"><i class="arrow right icon" id="next"></i></span> -->
-					<select class="ui search selection dropdown" id="semesterdropdown" onchange="updatesemesterlist()">
+					
+					<h1 id="semester">
+						<span onclick="goprevsemester()"><i class="arrow left icon" id="previous"></i></span>
+						<span id="season" contenteditable=true>Fall</span>
+						<span id="year" contenteditable=true>2018</span>
+						<span onclick="gonextsemester()"><i class="arrow right icon" id="next"></i></span>
+					</h1>
+					
+					<!-- <select class="ui search selection dropdown" id="semesterdropdown" onchange="updatesemesterlist()">
 						<option value="Fall 2019">Fall 2019</option>
 						<option value="Spring 2019">Spring 2019</option>
 						<option value="Fall 2018" selected>Fall 2018</option>
 						<option value="Spring 2018">Spring 2018</option>
 						<option value="Fall 2017">Fall 2017</option>
-					</select>
+					</select> -->
 				<!-- <div id="nxt"><i class="chevron right icon" id="next"></i></div> -->
 			</div>
 			<!-- <div id="right arrow"></div> -->
