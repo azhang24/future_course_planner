@@ -2,6 +2,7 @@ $('#seasondropdown').dropdown();
 
 var semestertoclasses = new Map();
 
+
 function addnewoption(dropdown, optionName){
 	var option = document.createElement("option")
 	option.value = optionName
@@ -39,8 +40,11 @@ function addclass(){
 	addnewoption(dropdown2, "Liberal Studies")
 	new_requirement.appendChild(dropdown2)
 
+	var new_credits = document.createElement("td")
+
 	new_row.appendChild(new_course)
 	new_row.appendChild(new_requirement)
+	new_row.appendChild(new_credits)
 
 	table_body.appendChild(new_row)
 
