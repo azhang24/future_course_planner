@@ -1,7 +1,44 @@
 $('#seasondropdown').dropdown();
 
+var sp19_cs_classes = 'https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP19&subject=CS';
+var request = new XMLHttpRequest();
+request.open('GET', sp19_cs_classes);
+request.responseType = 'json';
+request.send();
+request.onload = function(){
+	var data = request.response;
+}
+
 var semestertoclasses = new Map();
 
+
+function addnewsubjects(dropdown, semester){
+	var subjects = 'https://classes.cornell.edu/api/2.0/config/subjects.json?roster=' + semester;
+	var request = new XMLHttpRequest();
+	request.open('GET', subjects);
+	request.responseType = 'json';
+	request.send();
+	request.onload = function(){
+		var subjects = request.response.data.subjects;
+		for(var i = 0; i < subjects.length; i++){
+			var option = document.createElement("option");
+			option.value = subjects[i].value;
+			option.innerHTML = subjects[i].value + " (" + subjects[i].descr +")";
+			dropdown.appendChild(option);
+		}
+
+	}
+
+}
+
+function addnewclasses(dropdown, classes){
+	for(var i = 0; i < classes.length; i++){
+		var option = document.createElement("option");
+		option.value = classes[i].subject + " " + classes[i].catalogNbr;
+		option.innerHTML = classes[i].subject + " " + classes[i].catalogNbr + " (" + classes[i].titleShort + ")";
+		dropdown.appendChild(option);
+	}
+}
 
 function addnewoption(dropdown, optionName){
 	var option = document.createElement("option")
@@ -10,20 +47,30 @@ function addnewoption(dropdown, optionName){
 	dropdown.appendChild(option)
 }
 
+function changeclasses(){
+	
+}
+
 function addclass(){
 	var table_body = document.getElementById("table of classes").children[1]
 	var num_classes = table_body.childElementCount
 	var new_row = document.createElement("tr")
+
+	var new_subject = document.createElement("td")
+	var dropdown0 = document.createElement("select")
+	dropdown0.className = "ui search selection dropdown"
+	dropdown0.id = "subject-select" + (num_classes+1)
+	dropdown0.onchange = changeclasses();
+	addnewoption(dropdown0, "Subject")
+	addnewsubjects(dropdown0, "SP19")
+	new_subject.appendChild(dropdown0) 
 	
 	var new_course = document.createElement("td")
 	var dropdown1 = document.createElement("select")
 	dropdown1.className = "ui search selection dropdown"
 	dropdown1.id = "course-select" + (num_classes+1)
 	addnewoption(dropdown1, "Course")
-	addnewoption(dropdown1, "CS 2800")
-	addnewoption(dropdown1, "MATH 2940")
-	addnewoption(dropdown1, "CS 3110")
-	addnewoption(dropdown1, "CS 4780")
+	addnewclasses(dropdown1, request.response.data.classes)
 	new_course.appendChild(dropdown1)
 
 	var new_requirement = document.createElement("td")
@@ -42,12 +89,14 @@ function addclass(){
 
 	var new_credits = document.createElement("td")
 
+	new_row.appendChild(new_subject)
 	new_row.appendChild(new_course)
 	new_row.appendChild(new_requirement)
 	new_row.appendChild(new_credits)
 
 	table_body.appendChild(new_row)
 
+	$('#'+dropdown0.id).dropdown()
 	$('#'+dropdown1.id).dropdown()
 	$('#'+dropdown2.id).dropdown()
 }
@@ -89,6 +138,10 @@ function goprevsemester(){
 		document.getElementById("season").innerText = "Fall"
 	}
 }
+
+
+
+
 
 
 
