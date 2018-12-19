@@ -1,16 +1,25 @@
 $('#seasondropdown').dropdown();
 
-var sp19_cs_classes = 'https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP19&subject=CS';
-var request = new XMLHttpRequest();
-request.open('GET', sp19_cs_classes);
-request.responseType = 'json';
-request.send();
-request.onload = function(){
-	var data = request.response;
-}
+// var sp19_cs_classes = 'https://classes.cornell.edu/api/2.0/search/classes.json?roster=SP19&subject=CS';
+// var request = new XMLHttpRequest();
+// request.open('GET', sp19_cs_classes);
+// request.responseType = 'json';
+// request.send();
+// request.onload = function(){
+// 	var data = request.response;
+// }
 
 var semestertoclasses = new Map();
 
+function semesterabrev(season, year){
+	var y = year % 1000;
+	if(season == "Fall"){
+		return "FA" + y.toString();
+	}
+	else if(season == "Spring"){
+		return "SP" + y.toString();
+	}
+}
 
 function addnewsubjects(dropdown, semester){
 	var subjects = 'https://classes.cornell.edu/api/2.0/config/subjects.json?roster=' + semester;
@@ -40,6 +49,13 @@ function addnewclasses(dropdown, classes){
 	}
 }
 
+function removeoldclasses(dropdown){
+	var length = dropdown.options.length;
+	for(var i = length - 1; i > 0; i--){
+		dropdown.remove(i);
+	}
+}
+
 function addnewoption(dropdown, optionName){
 	var option = document.createElement("option")
 	option.value = optionName
@@ -47,11 +63,13 @@ function addnewoption(dropdown, optionName){
 	dropdown.appendChild(option)
 }
 
-function changeclasses(){
-	
-}
-
 function addclass(){
+
+	var season = document.getElementById("season").innerHTML
+ 	var year = document.getElementById("year").innerHTML
+
+ 	var abrev = semesterabrev(season, parseInt(year, 10))
+
 	var table_body = document.getElementById("table of classes").children[1]
 	var num_classes = table_body.childElementCount
 	var new_row = document.createElement("tr")
@@ -60,9 +78,8 @@ function addclass(){
 	var dropdown0 = document.createElement("select")
 	dropdown0.className = "ui search selection dropdown"
 	dropdown0.id = "subject-select" + (num_classes+1)
-	dropdown0.onchange = changeclasses();
 	addnewoption(dropdown0, "Subject")
-	addnewsubjects(dropdown0, "SP19")
+	addnewsubjects(dropdown0, abrev)
 	new_subject.appendChild(dropdown0) 
 	
 	var new_course = document.createElement("td")
@@ -70,8 +87,23 @@ function addclass(){
 	dropdown1.className = "ui search selection dropdown"
 	dropdown1.id = "course-select" + (num_classes+1)
 	addnewoption(dropdown1, "Course")
-	addnewclasses(dropdown1, request.response.data.classes)
+	//addnewclasses(dropdown1, request.response.data.classes)
 	new_course.appendChild(dropdown1)
+
+	dropdown0.onchange = function () 
+	{
+		var subject = dropdown0.value;
+		var classes = 'https://classes.cornell.edu/api/2.0/search/classes.json?roster='+ abrev + '&subject=' + subject;
+		var request = new XMLHttpRequest();
+		request.open('GET', classes);
+		request.responseType = 'json';
+		request.send();
+		request.onload = function(){
+			var data = request.response;
+			removeoldclasses(dropdown1);
+			addnewclasses(dropdown1, data.data.classes);
+		}
+	};
 
 	var new_requirement = document.createElement("td")
 	var dropdown2 = document.createElement("select")
