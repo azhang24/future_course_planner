@@ -120,6 +120,28 @@ function addclass(){
 	new_requirement.appendChild(dropdown2)
 
 	var new_credits = document.createElement("td")
+	dropdown1.onchange = function () 
+	{
+		var class_ = dropdown1.value;
+		var subject = class_.split(' ')[0];
+		var num = class_.split(' ')[1];
+		var classes = 'https://classes.cornell.edu/api/2.0/search/classes.json?roster='+ abrev + '&subject=' + subject;
+		var request = new XMLHttpRequest();
+		request.open('GET', classes);
+		request.responseType = 'json';
+		request.send();
+		request.onload = function(){
+			var classes = request.response.data.classes;
+			for(var id = 0; id < classes.length; id++){
+				if(classes[id].catalogNbr == num){
+					var num_credits = classes[id].enrollGroups[0].unitsMaximum;
+					break;
+				}
+			}
+			new_credits.value = num_credits;
+			new_credits.innerHTML = num_credits;
+		}
+	};
 
 	new_row.appendChild(new_subject)
 	new_row.appendChild(new_course)
