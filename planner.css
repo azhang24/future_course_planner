@@ -11,7 +11,7 @@
 	float: right;
 }
 
-#semester, .buttons{
+#semester, .buttons, #save{
 	position: relative;
 	right: 10px;
 }
