@@ -134,12 +134,32 @@ function addclass(){
 		}
 	};
 
+	var remove = document.createElement("td")
+	var remove_button = document.createElement("button");
+	remove_button.innerHTML = "Remove"
+	remove_button.className = "negative ui button";
+	remove.appendChild(remove_button);
+	remove_button.onclick = function(){
+		console.log(table_body.childElementCount);
+		var row_to_remove = remove_button.parentElement.parentElement;
+		table_body.removeChild(row_to_remove);
+		console.log(table_body.childElementCount);
+		for (var i = 0; i < table_body.childElementCount; i++){
+			table_body.children[i].children[0].children[0].children[0].id = "subject-select" + (i+1);
+			table_body.children[i].children[1].children[0].children[0].id = "course-select" + (i+1);
+			table_body.children[i].children[2].children[0].children[0].id = "requirement-select" + (i+1);
+		}
+
+	}
+
 	new_row.appendChild(new_subject)
 	new_row.appendChild(new_course)
 	new_row.appendChild(new_requirement)
 	new_row.appendChild(new_credits)
+	new_row.appendChild(remove);
 
 	table_body.appendChild(new_row)
+
 
 	$('#'+dropdown0.id).dropdown()
 	$('#'+dropdown1.id).dropdown()
