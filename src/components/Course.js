@@ -43,6 +43,7 @@ class Course extends React.Component{
 
     handleSubjectChange(subject){
         const semester = this.props.chosenSemester
+
         let url
         if(semester.split(" ")[0] === "Fall"){
             url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=FA18&subject=" + subject
@@ -52,7 +53,27 @@ class Course extends React.Component{
         }
         fetch(url)
             .then(response => response.json())
-            .then(data => console.log(data.data.classes))
+            .then(data => {
+                const classes = data.data.classes
+                let class_objects = classes.map(clss => {
+                    const classid = clss.subject + " " + clss.catalogNbr
+                    const classtitle = clss.titleShort
+                    const classfull = classid + " (" + classtitle + ")"
+                    return {
+                        key: classid,
+                        value: classfull,
+                        text: classfull
+                    }
+                })
+                this.setState(prevState => {
+                    return {
+                        subjects: prevState.subjects,
+                        classes: class_objects,
+                        requirements: prevState.requirements,
+                        credits: prevState.credits
+                    }
+                })
+            })
     }
 
     render(){
