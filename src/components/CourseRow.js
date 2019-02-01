@@ -1,8 +1,9 @@
 import React from "react"
 import {Dropdown} from "semantic-ui-react"
 import Subject from "./course_components/Subject"
+import Course from "./course_components/Course"
 
-class Course extends React.Component{
+class CourseRow extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -12,6 +13,7 @@ class Course extends React.Component{
             credits: null,
         }
         this.handleSubjectChange = this.handleSubjectChange.bind(this)
+        this.handleCourseChange = this.handleCourseChange.bind(this)
     }
     
     componentDidMount(){
@@ -59,10 +61,12 @@ class Course extends React.Component{
                     const classid = clss.subject + " " + clss.catalogNbr
                     const classtitle = clss.titleShort
                     const classfull = classid + " (" + classtitle + ")"
+                    const creds = clss.enrollGroups[0].unitsMaximum
                     return {
                         key: classid,
-                        value: classfull,
-                        text: classfull
+                        value: classtitle,
+                        text: classfull,
+                        credits: creds
                     }
                 })
                 this.setState(prevState => {
@@ -76,6 +80,27 @@ class Course extends React.Component{
             })
     }
 
+    handleCourseChange(course){
+        this.setState(prevState => {
+            return {
+                subjects: prevState.subjects,
+                classes: prevState.classes,
+                requirements: prevState.requirements,
+                credits: null
+            }
+        })
+        const classes = this.state.classes
+        const creds = classes.filter(clss => clss.value === course)[0].credits
+        this.setState(prevState => {
+            return {
+                subjects: prevState.subjects,
+                classes: prevState.classes,
+                requirements: prevState.requirements,
+                credits: creds
+            }
+        })
+    }
+
     render(){
         return (<tr>
             <td>
@@ -85,11 +110,9 @@ class Course extends React.Component{
                 />
 
             </td>
-            <td><Dropdown 
-                    search
-                    selection
-                    placeholder="Course"
-                    options={this.state.classes}
+            <td><Course
+                    courses={this.state.classes}
+                    onCourseChange={this.handleCourseChange}
                 />
             </td>
             <td>
@@ -106,4 +129,4 @@ class Course extends React.Component{
     }
 }
 
-export default Course
+export default CourseRow

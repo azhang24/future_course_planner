@@ -1,5 +1,5 @@
 import React from "react"
-import Course from "./Course"
+import CourseRow from "./CourseRow"
 import SemesterDropdown from "./SemesterDropdown"
 
 class Planner extends React.Component{
@@ -16,7 +16,7 @@ class Planner extends React.Component{
     }
 
     addClasses(rows, rowlength){
-        rows.push(<Course key={rowlength+1} chosenSemester={this.state.semester}/>)
+        rows.push(<CourseRow key={rowlength+1} chosenSemester={this.state.semester}/>)
         return rows
     }
 
