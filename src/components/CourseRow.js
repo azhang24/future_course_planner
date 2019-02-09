@@ -14,6 +14,7 @@ class CourseRow extends React.Component{
         }
         this.handleSubjectChange = this.handleSubjectChange.bind(this)
         this.handleCourseChange = this.handleCourseChange.bind(this)
+        this.handleRemoveRow = this.handleRemoveRow.bind(this)
     }
     
     componentDidMount(){
@@ -101,6 +102,10 @@ class CourseRow extends React.Component{
         })
     }
 
+    handleRemoveRow(){
+        this.props.onRemove(this.props.id)
+    }
+
     render(){
         return (<tr>
             <td>
@@ -124,7 +129,14 @@ class CourseRow extends React.Component{
                 />
             </td>
             <td>{this.state.credits}</td>
-            <td><button className="negative ui button">Remove Course</button></td>
+            <td>
+                <button 
+                    className="negative ui button"
+                    onClick={this.handleRemoveRow}
+                    >
+                    Remove Course
+                </button>
+            </td>
         </tr>)
     }
 }

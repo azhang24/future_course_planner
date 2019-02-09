@@ -13,10 +13,19 @@ class Planner extends React.Component{
         this.handleChange = this.handleChange.bind(this)
         this.handleSemester = this.handleSemester.bind(this)
         this.generateSemesters = this.generateSemesters.bind(this)
+        this.removeRow = this.removeRow.bind(this)
     }
 
-    addClasses(rows, rowlength){
-        rows.push(<CourseRow key={rowlength+1} chosenSemester={this.state.semester}/>)
+    addClasses(rows){
+        const min = 1
+        const max = 100000
+        const rand = min + Math.random() * (max - min)
+        rows.push(<CourseRow 
+                    key={rand}
+                    id={rand} 
+                    chosenSemester={this.state.semester}
+                    onRemove={this.removeRow}
+                    />)
         return rows
     }
 
@@ -40,6 +49,16 @@ class Planner extends React.Component{
             return {
                 rows: prevState.rows,
                 semester: semesterValue,
+            }
+        })
+    }
+
+    removeRow(row_id){
+        this.setState(prevState => {
+            const new_rows = prevState.rows.filter(row => row.props.id !== row_id)
+            return {
+                rows: new_rows,
+                semester: prevState.semester
             }
         })
     }
