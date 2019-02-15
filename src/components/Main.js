@@ -90,6 +90,13 @@ class Main extends React.Component{
                         />
                     </label>
                     <label style={{marginRight: 20}}>
+                        College:
+                        <Input
+                            placeholder="College (e.g. Engineering)"
+                            name="college"
+                        />
+                    </label>
+                    <label style={{marginRight: 20}}>
                         Major:
                         <Dropdown
                             options={subjects}
