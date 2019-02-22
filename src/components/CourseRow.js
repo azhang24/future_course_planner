@@ -2,6 +2,7 @@ import React from "react"
 import {Dropdown} from "semantic-ui-react"
 import Subject from "./course_components/Subject"
 import Course from "./course_components/Course"
+import DropdownField from "./DropdownField"
 
 class CourseRow extends React.Component{
     constructor(){
@@ -109,15 +110,20 @@ class CourseRow extends React.Component{
     render(){
         return (<tr>
             <td>
-                <Subject
-                    subjects={this.state.subjects} 
-                    onSubjectChange={this.handleSubjectChange}
+                <DropdownField
+                    options={this.state.subjects}
+                    placeholder="Subject"
+                    name="subject"
+                    onChange={this.handleSubjectChange}
                 />
 
             </td>
-            <td><Course
-                    courses={this.state.classes}
-                    onCourseChange={this.handleCourseChange}
+            <td>
+                <DropdownField
+                    options={this.state.classes}
+                    placeholder="Course"
+                    name="course"
+                    onChange={this.handleCourseChange}
                 />
             </td>
             <td>

@@ -1,6 +1,6 @@
 import React from "react"
 import CourseRow from "./CourseRow"
-import SemesterDropdown from "./SemesterDropdown"
+import DropdownField from "./DropdownField"
 
 class Planner extends React.Component{
     constructor(){
@@ -94,11 +94,13 @@ class Planner extends React.Component{
     render(){
         return (
             <div style={{width: 1000}}>
-                <SemesterDropdown
+                <DropdownField
                     options=
                     {this.generateSemesters(this.props.currentSemester, 
                                             this.props.lastSemester)}
-                    onSemesterChange={this.handleSemester}
+                    placeholder="Select Semester"
+                    name="semester"
+                    onChange={this.handleSemester}
                 />
                 <table className="ui celled table">
                     <thead>
