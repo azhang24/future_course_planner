@@ -1,7 +1,5 @@
 import React from "react"
 import {Dropdown} from "semantic-ui-react"
-import Subject from "./course_components/Subject"
-import Course from "./course_components/Course"
 import DropdownField from "./DropdownField"
 
 class CourseRow extends React.Component{
