@@ -1,7 +1,7 @@
 import React from "react"
 import {Input} from 'semantic-ui-react'
-import {Dropdown} from 'semantic-ui-react'
 import Planning from "./Planning"
+import DropdownField from "./DropdownField"
 
 class Main extends React.Component{
     constructor(){
@@ -14,8 +14,8 @@ class Main extends React.Component{
             value: ""
         }
         this.handleChange = this.handleChange.bind(this)
-        this.handleChangeDropdown = this.handleChangeDropdown.bind(this)
-        this.handleSearchChange = this.handleSearchChange.bind(this)
+        //this.handleChangeDropdown = this.handleChangeDropdown.bind(this)
+        //this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
     componentDidMount(){
@@ -66,12 +66,7 @@ class Main extends React.Component{
         })
     }
 
-    handleChangeDropdown = (event, {majorQuery, value}) => this.setState({majorQuery, value})
-
-    handleSearchChange = (event, {majorQuery}) => this.setState({majorQuery}) 
-
     render(){
-        const subjects = this.state.subjects
         return (
             <div>
                 <form style={
@@ -98,17 +93,11 @@ class Main extends React.Component{
                     </label>
                     <label style={{marginRight: 20}}>
                         Major:
-                        <Dropdown
-                            options={subjects}
-                            required
-                            search
-                            selection
+                        <DropdownField
+                            options={this.state.subjects}
                             placeholder="Major"
-                            value={this.state.value}
                             name="major"
-                            onChange={this.handleChangeDropdown}
-                            onSearchChange={this.handleSearchChange}
-                            searchQuery={this.state.majorQuery}
+                            onChange={this.handleChange}
                         />
                     </label>
                     <button className="ui primary button">Save</button>
