@@ -44,7 +44,7 @@ class Planner extends React.Component{
         })
     }
 
-    handleSemester(semesterValue){
+    handleSemester(event, semesterValue){
         this.setState(prevState => {
             return {
                 rows: prevState.rows,

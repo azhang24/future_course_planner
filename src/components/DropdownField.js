@@ -15,7 +15,8 @@ class DropdownField extends React.Component{
         this.setState({
             value: val
         })
-        this.props.onChange(event)
+        event.persist()
+        this.props.onChange(event, val)
     }
 
     render(){

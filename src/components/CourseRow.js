@@ -10,6 +10,13 @@ class CourseRow extends React.Component{
             classes: [],
             requirements: [],
             credits: null,
+            chosenClass:
+            {
+                chosenSubject: "",
+                chosenClass: "",
+                chosenRequirement: "",
+                chosenCredits: null
+            }
         }
         this.handleSubjectChange = this.handleSubjectChange.bind(this)
         this.handleCourseChange = this.handleCourseChange.bind(this)
@@ -38,14 +45,20 @@ class CourseRow extends React.Component{
                     subjects: subject_objects,
                     classes: [],
                     requirements: [],
-                    credits: null
+                    credits: null,
+                    chosenClass:
+                    {
+                        chosenSubject: "",
+                        chosenClass: "",
+                        chosenRequirement: "",
+                        chosenCredits: null
+                    }
                 })
             })
     }
 
     handleSubjectChange(subject){
         const semester = this.props.chosenSemester
-
         let url
         if(semester.split(" ")[0] === "Fall"){
             url = "https://classes.cornell.edu/api/2.0/search/classes.json?roster=FA18&subject=" + subject
@@ -73,8 +86,15 @@ class CourseRow extends React.Component{
                     return {
                         subjects: prevState.subjects,
                         classes: class_objects,
-                        requirements: prevState.requirements,
-                        credits: prevState.credits
+                        requirements: [],
+                        credits: null,
+                        chosenClass:
+                        {
+                            chosenSubject: subject,
+                            chosenClass: "",
+                            chosenRequirement: "",
+                            chosenCredits: null
+                        }
                     }
                 })
             })
@@ -86,7 +106,8 @@ class CourseRow extends React.Component{
                 subjects: prevState.subjects,
                 classes: prevState.classes,
                 requirements: prevState.requirements,
-                credits: null
+                credits: null,
+                chosenClass: prevState.chosenClass
             }
         })
         const classes = this.state.classes
@@ -96,7 +117,13 @@ class CourseRow extends React.Component{
                 subjects: prevState.subjects,
                 classes: prevState.classes,
                 requirements: prevState.requirements,
-                credits: creds
+                credits: creds,
+                chosenClass: {
+                    chosenSubject: prevState.chosenClass.chosenSubject,
+                    chosenClass: course,
+                    chosenRequirement: prevState.chosenClass.chosenRequirement,
+                    chosenCredits: creds
+                }
             }
         })
     }

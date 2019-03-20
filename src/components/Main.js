@@ -10,12 +10,10 @@ class Main extends React.Component{
             currentSemester: "",
             lastSemester: "",
             subjects: [],
-            majorQuery: "",
-            value: ""
+            majorValue: ""
         }
         this.handleChange = this.handleChange.bind(this)
-        //this.handleChangeDropdown = this.handleChangeDropdown.bind(this)
-        //this.handleSearchChange = this.handleSearchChange.bind(this)
+        this.handleMajorChange = this.handleMajorChange.bind(this)
     }
 
     componentDidMount(){
@@ -52,8 +50,7 @@ class Main extends React.Component{
                         currentSemester: season + " " + year,
                         lastSemester: prevState.lastSemester,
                         subjects: subject_objects,
-                        majorQuery: prevState.majorQuery,
-                        value: prevState.value
+                        majorValue: prevState.majorValue
                     }
                 })
             })
@@ -64,6 +61,18 @@ class Main extends React.Component{
         this.setState({
             [name]: value
         })
+    }
+
+    handleMajorChange = (event, major) => {
+        this.setState(prevState => {
+            return {
+                currentSemester: prevState.currentSemester,
+                lastSemester: prevState.lastSemester,
+                subjects: prevState.subjects,
+                majorValue: major
+            }
+        })
+
     }
 
     render(){
@@ -97,7 +106,7 @@ class Main extends React.Component{
                             options={this.state.subjects}
                             placeholder="Major"
                             name="major"
-                            onChange={this.handleChange}
+                            onChange={this.handleMajorChange}
                         />
                     </label>
                     <button className="ui primary button">Save</button>
@@ -105,7 +114,7 @@ class Main extends React.Component{
                 <Planning 
                     currentSemester={this.state.currentSemester}
                     lastSemester={this.state.lastSemester}
-                    major={this.state.value}
+                    major={this.state.majorValue}
                 />
             </div>
             
